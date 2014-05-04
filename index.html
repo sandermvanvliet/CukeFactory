@@ -79,30 +79,8 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 		<script src="js/knockout-3.1.0.js"></script>
+		<script src="js/controllers/features.js"></script>
 		<script type="text/javascript">
-var Feature = function(name, scenarios) {
-	this.name = ko.observable(name);
-	this.scenarios = ko.observableArray(scenarios);
-};
-var Scenario = function(name, spec)
-{
-		var self = this;
-		self.name = ko.observable(name);
-		self.spec = ko.observable(spec);
-}
-function FeaturesViewModel() {
-	var self = this;
-	self.features = ko.observableArray([
-		new Feature("Feature One", [ new Scenario("Scenario 1"), new Scenario("Scenario 2") ]),
-		new Feature("Feature Two", [ new Scenario("Scenario 1"), new Scenario("Scenario 2"), new Scenario("Scenario 3"), new Scenario("Scenario 4"), new Scenario("Scenario 5"), new Scenario("Scenario 6") ]),
-		new Feature("Feature Three", [ new Scenario("Scenario 1", "Given the date is today\nAnd the internet is down\nWhen I browse to Google\nThen I see an error message"), new Scenario("Scenario 2") ]),
-		new Feature("Feature Four", []),
-	]);
-	self.selectedFeatureScenarios = ko.observableArray([]);
-	self.selectFeatureClick = function(feature) {
-		self.selectedFeatureScenarios(feature.scenarios());
-	}
-};
 ko.applyBindings(new FeaturesViewModel());
 		</script>
   </body>
