@@ -46,9 +46,32 @@
 		  </div><!-- /.container-fluid -->
 		</nav>
 
+		<ul class="list-group" data-bind="foreach: features">
+				<li class="list-group-item">
+					<span data-bind="text: name"></span>
+				</li>
+		</ul>
+
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
+		<script src="js/knockout-3.1.0.js"></script>
+		<script src="js/controllers/features.js"></script>
+		<script type="text/javascript">
+var Feature = function(name, scenarios) {
+	this.name = ko.observable(name);
+	this.scenarios = ko.observableArray(scenarios);
+};
+var FeatureViewModel = {
+	features: [
+		new Feature("Feature One", [ "Scenario 1", "Scenario 2" ]),
+		new Feature("Feature Two", [ "Scenario 1", "Scenario 2" ]),
+		new Feature("Feature Three", [ "Scenario 1", "Scenario 2" ]),
+		new Feature("Feature Four", [ "Scenario 1", "Scenario 2" ]),
+	]
+};
+ko.applyBindings(FeaturesViewModel);
+		</script>
   </body>
 </html>
