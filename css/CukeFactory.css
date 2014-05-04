@@ -10,6 +10,7 @@ body {
 	width: 400px;
 	font-family: monospace;
 	margin:2px;
+	padding:2px;
 	border:solid 1px #cccccc;
 }
 
