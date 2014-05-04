@@ -93,7 +93,7 @@ function FeaturesViewModel() {
 	]);
 	self.selectedFeatureScenarios = ko.observableArray([]);
 	self.selectFeatureClick = function(feature) {
-		alert('set the scenarios');
+		self.selectedFeatureScenarios(feature.scenarios());
 	}
 };
 ko.applyBindings(new FeaturesViewModel());
