@@ -6,3 +6,6 @@ body {
 	height: 100%;
 	border-right: light-grey;
 }
+.scenarioSpec {
+	width: 400px;
+}
