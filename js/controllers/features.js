@@ -32,11 +32,11 @@ function FeaturesViewModel() {
 	}
 };
 function syntaxify(text) {
+	text = text.replace('\n', '<br />');
 	text = text.replace('Given', '<span class="cuke-keyword">Given</span>');
 	text = text.replace('When', '<span class="cuke-keyword">When</span>');
 	text = text.replace('Then', '<span class="cuke-keyword">Then</span>');
 	text = text.replace('And', '<span class="cuke-keyword">And</span>');
-	text = text.replace('\n', '<br />');
 
 	return text;
 }
