@@ -94,7 +94,7 @@ var FeaturesViewModel = {
 	selectFeatureClick: function(feature) {
 		selectedFeatureScenarios(feature.scenarios());
 	},
-	selectedFeatureScenarios: ko.observableArray()
+	selectedFeatureScenarios: ko.observableArray([])
 };
 ko.applyBindings(FeaturesViewModel);
 		</script>
