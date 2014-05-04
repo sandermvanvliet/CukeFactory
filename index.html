@@ -65,7 +65,7 @@
 				<h3 class="panel-title">Scenrios</h3>
 			</div>
 			<div class="panel-body">
-				<ul class="list-group" data-bind="foreach: selectedFeature.scenarios">
+				<ul class="list-group" data-bind="foreach: selectedFeatureScenarios">
 						<li class="list-group-item">
 							<span data-bind="text: name"></span>
 						</li>
@@ -92,9 +92,9 @@ var FeaturesViewModel = {
 		new Feature("Feature Four", []),
 	],
 	selectFeatureClick: function(feature) {
-		selectedFeature(feature);
+		selectedFeatureScenarios(feature.scenarios());
 	}
-	selectedFeature: ko.observable();
+	selectedFeatureScenarios: ko.observableArray()
 };
 ko.applyBindings(FeaturesViewModel);
 		</script>
