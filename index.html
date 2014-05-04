@@ -48,11 +48,25 @@
 		</nav>
 
 		<div class="featurelist panel">
-			<h3 class="panel-title">Features</h3>
+			<div class="panel-heading">
+				<h3 class="panel-title">Features</h3>
+			</div>
 			<div class="panel-body">
-				<ul class="list-group featurelist panel" data-bind="foreach: features">
+				<ul class="list-group" data-bind="foreach: features">
 						<li class="list-group-item">
 							<span class="badge" data-bind="text: scenarios().length"></span>
+							<span data-bind="text: name"></span>
+						</li>
+				</ul>
+			</div>
+		</div>
+		<div class="scenariolist panel">
+			<div class="panel-heading">
+				<h3 class="panel-title">Scenrios</h3>
+			</div>
+			<div class="panel-body">
+				<ul class="list-group" data-bind="foreach: selectedFeature.scenarios">
+						<li class="list-group-item">
 							<span data-bind="text: name"></span>
 						</li>
 				</ul>
@@ -76,7 +90,11 @@ var FeaturesViewModel = {
 		new Feature("Feature Two", [ "Scenario 1", "Scenario 2", "Scenario 3", "Scenario 4", "Scenario 5", "Scenario 6" ]),
 		new Feature("Feature Three", [ "Scenario 1", "Scenario 2" ]),
 		new Feature("Feature Four", []),
-	]
+	],
+	selectFeatureClick: function(feature) {
+		selectedFeature(feature);
+	}
+	selectedFeature: ko.observable();
 };
 ko.applyBindings(FeaturesViewModel);
 		</script>
