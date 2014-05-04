@@ -53,9 +53,9 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-group" data-bind="foreach: features">
-						<li class="list-group-item" data-bind="click: $root.selectFeatureClick">
+						<li class="list-group-item" data-bind="click: $parent.selectFeatureClick">
 							<span class="badge" data-bind="text: scenarios().length"></span>
-							<span data-bind="text: name, click: $root.selectFeatureClick"></span>
+							<span data-bind="text: name, click: $parent.selectFeatureClick"></span>
 						</li>
 				</ul>
 			</div>
