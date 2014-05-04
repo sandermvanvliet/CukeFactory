@@ -83,12 +83,17 @@ var Feature = function(name, scenarios) {
 	this.name = ko.observable(name);
 	this.scenarios = ko.observableArray(scenarios);
 };
+var Scenario = function(name)
+{
+		var self = this;
+		self.name = ko.observable(name);
+}
 function FeaturesViewModel() {
 	var self = this;
 	self.features = ko.observableArray([
-		new Feature("Feature One", [ "Scenario 1", "Scenario 2" ]),
-		new Feature("Feature Two", [ "Scenario 1", "Scenario 2", "Scenario 3", "Scenario 4", "Scenario 5", "Scenario 6" ]),
-		new Feature("Feature Three", [ "Scenario 1", "Scenario 2" ]),
+		new Feature("Feature One", [ new Scenario("Scenario 1"), new Scenario("Scenario 2") ]),
+		new Feature("Feature Two", [ new Scenario("Scenario 1"), new Scenario("Scenario 2"), new Scenario("Scenario 3"), new Scenario("Scenario 4"), new Scenario("Scenario 5"), new Scenario("Scenario 6") ]),
+		new Feature("Feature Three", [ new Scenario("Scenario 1"), new Scenario("Scenario 2") ]),
 		new Feature("Feature Four", []),
 	]);
 	self.selectedFeatureScenarios = ko.observableArray([]);
