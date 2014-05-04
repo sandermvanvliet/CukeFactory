@@ -53,7 +53,7 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-group" data-bind="foreach: features">
-						<li class="list-group-item" data-bind="click: $parent.selectFeatureClick">
+						<li class="list-group-item" data-bind="click: $root.selectFeatureClick">
 							<span class="badge" data-bind="text: scenarios().length"></span>
 							<span data-bind="text: name"></span>
 						</li>
@@ -78,7 +78,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 		<script src="js/knockout-3.1.0.js"></script>
-		<script src="js/controllers/features.js"></script>
 		<script type="text/javascript">
 var Feature = function(name, scenarios) {
 	this.name = ko.observable(name);
@@ -92,11 +91,11 @@ var FeaturesViewModel = function() {
 		new Feature("Feature Three", [ "Scenario 1", "Scenario 2" ]),
 		new Feature("Feature Four", []),
 	]);
+	selectedFeatureScenarios = ko.observableArray([]);
 	selectFeatureClick = function(feature) {
 		self.selectedFeatureScenarios(feature.scenarios);
 		alert('set the scenarios');
-	};
-	selectedFeatureScenarios = ko.observableArray([]);
+	}
 };
 ko.applyBindings(new FeaturesViewModel());
 		</script>
