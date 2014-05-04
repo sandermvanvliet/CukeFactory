@@ -9,3 +9,12 @@ body {
 .scenarioSpec {
 	width: 400px;
 }
+
+/* Syntax highlighting */
+.cuke-keyword {
+	color: blue;
+}
+.cuke-parameter {
+	font-style: italic;
+	color: gray;
+}

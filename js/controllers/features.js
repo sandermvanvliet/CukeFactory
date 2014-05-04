@@ -7,6 +7,9 @@ var Scenario = function(name, spec)
 		var self = this;
 		self.name = ko.observable(name);
 		self.spec = ko.observable(spec);
+		self.specSyntaxed = ko.computed(function() {
+			return syntaxify(self.spec());
+		});
 }
 function FeaturesViewModel() {
 	var self = this;
@@ -21,10 +24,18 @@ function FeaturesViewModel() {
 				"Given there are four features\nWhen I view the list\nThen the list contains four features"),
 			new Scenario("A feature contains four scenarios",
 				"Given a feature with four scenarios\nWhen I view the list\nThen the feature item indicates four scenarios")
-		]),
+		])
 	]);
 	self.selectedFeatureScenarios = ko.observableArray([]);
 	self.selectFeatureClick = function(feature) {
 		self.selectedFeatureScenarios(feature.scenarios());
 	}
 };
+function syntaxify(text) {
+	text = text.replace('Given', '<span class="cuke-keyword">Given</span>');
+	text = text.replace('When', '<span class="cuke-keyword">When</span>');
+	text = text.replace('Then', '<span class="cuke-keyword">Then</span>');
+	text = text.replace('And', '<span class="cuke-keyword">And</span>');
+
+	return text;
+}
