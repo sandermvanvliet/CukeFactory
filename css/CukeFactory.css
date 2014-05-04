@@ -8,6 +8,7 @@ body {
 }
 .scenarioSpec {
 	width: 400px;
+	font-family: monospace;
 }
 
 /* Syntax highlighting */
