@@ -4,4 +4,5 @@ body {
 .featurelist {
 	width: 250px;
 	height: 100%;
+	border-right: light-grey;
 }
