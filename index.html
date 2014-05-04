@@ -47,12 +47,15 @@
 		  </div><!-- /.container-fluid -->
 		</nav>
 
-		<ul class="list-group featurelist" data-bind="foreach: features">
+		<div class="featurelist panel">
+			<h3 class="panel-title">Features</h3>
+		<ul class="list-group featurelist panel" data-bind="foreach: features">
 				<li class="list-group-item">
 					<span class="badge" data-bind="text: scenarios().length"></span>
 					<span data-bind="text: name"></span>
 				</li>
 		</ul>
+		</div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
