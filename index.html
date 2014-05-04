@@ -85,7 +85,6 @@ var Feature = function(name, scenarios) {
 	this.scenarios = ko.observableArray(scenarios);
 };
 var FeaturesViewModel = {
-	self: this,
 	features: [
 		new Feature("Feature One", [ "Scenario 1", "Scenario 2" ]),
 		new Feature("Feature Two", [ "Scenario 1", "Scenario 2", "Scenario 3", "Scenario 4", "Scenario 5", "Scenario 6" ]),
@@ -93,7 +92,7 @@ var FeaturesViewModel = {
 		new Feature("Feature Four", []),
 	],
 	selectFeatureClick: function(feature) {
-		self.selectedFeatureScenarios(feature.scenarios());
+		this.selectedFeatureScenarios(feature.scenarios());
 	},
 	selectedFeatureScenarios: ko.observableArray([])
 };
