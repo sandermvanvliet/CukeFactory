@@ -25,3 +25,8 @@ body {
 	font-style: italic;
 	color: gray;
 }
+/* Suggestions */
+#newScenario .typeahead {
+	display:block;
+	width:380px;
+}
