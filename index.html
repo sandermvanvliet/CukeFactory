@@ -82,84 +82,60 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
 		<script src="js/knockout-3.1.0.js"></script>
-		<script src="js/bloodhound.min.js"></script>
 		<script src="js/typeahead.bundle.min.js"></script>
-		<script src="js/typeahead.jquery.min.js"></script>
 		<script src="js/controllers/features.js"></script>
 		<script type="text/javascript">
 			ko.applyBindings(new FeaturesViewModel());
 		</script>
 		<script type="text/javascript">
 			var givens = new Bloodhound({
-				datumTokenizer: Bloodhound.tokenizers.whitespace('value'),
+				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
 				queryTokenizer: function(s) {
 					if(s.startsWith('Given'))
 					{
-						s = s.slice(6);
+						s = s.slice(5);
 					}
 					else if(s.startsWith('And'))
 					{
-						s = s.slice(4);
+						s = s.slice(3);
 					}
 
 					return s.split(/\s+/);
 				},
 				limit: 10,
-				prefetch: {
-					url: 'data/cukes-suggest.js',
-					filter: function(list) {
-						return $.map(list, function(cuke) { return { value: cuke }; });
-					}
-				}
-			});
-			var whens = new Bloodhound({
-				datumTokenizer: function(s) {
-					if(s.startsWith('When'))
-					{
-						return s.slice(6);
-					}
-					return s;
-				},
-				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				limit: 10,
-				prefetch: {
-					url: 'data/cukes-suggest.js',
-					filter: function(list) {
-						return $.map(list.whens, function(cuke) { return { value: cuke }; });
-					}
-				}
-			});
-			var thens = new Bloodhound({
-				datumTokenizer: function(s) {
-					if(s.startsWith('When'))
-					{
-						return s.slice(6);
-					}
-					return s;
-				},
-				queryTokenizer: Bloodhound.tokenizers.whitespace,
-				limit: 10,
-				prefetch: {
-					url: 'data/cukes-suggest.js',
-					filter: function(list) {
-						return $.map(list.thens, function(cuke) { return { value: cuke }; });
-					}
-				}
+				local: 
+[
+	{
+		type: 'given',
+		text: 'the date is today'
+	},
+	{
+		type: 'given',
+		text: 'the internet is down'
+	},
+	{
+		type: 'given',
+		text: 'the internet is up'
+	}
+]
 			});
 
 			givens.initialize();
-			whens.initialize();
-			thens.initialize();
 
 			$('#newScenario .typeahead').typeahead({
 				hint: true,
 				highlight: true,
-				minLength: 3
+				minLength: 1
 			},
 			{
 				name: 'given',
-				displayKey: 'value',
+				displayKey: 'text',
 				source: givens.ttAdapter()
+			})
+			.on('typeahead:selected', function(event, selection) {
+				alert('selected: ' + selection.type + ' ' + selection.text);
+				// Add step to the scenario
+				// Advance 1 line
 			});
 
 if (typeof String.prototype.startsWith != 'function') {
