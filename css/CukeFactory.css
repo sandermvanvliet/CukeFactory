@@ -4,7 +4,10 @@ body {
 .featurelist {
 	width: 250px;
 	height: 100%;
-	border-right: light-grey;
+}
+.scenariolist {
+	width: 420px;
+	height: 100%;
 }
 .scenarioSpec {
 	width: 400px;
