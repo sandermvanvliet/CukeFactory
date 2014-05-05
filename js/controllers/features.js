@@ -2,6 +2,7 @@ var Feature = function(name, scenarios) {
 	this.name = ko.observable(name);
 	this.scenarios = ko.observableArray(scenarios);
 };
+
 var Scenario = function(name, spec)
 {
 		var self = this;
@@ -10,7 +11,17 @@ var Scenario = function(name, spec)
 		self.specSyntaxed = ko.computed(function() {
 			return syntaxify(self.spec());
 		});
+		self.steps = ko.observableArray([]);
+		self.addStep = function(text) {
+			self.steps.push(new Step(text));
+		}
 }
+var Step = function(text)
+{
+		var self = this;
+		self.stepText = ko.observable(text);
+}
+
 function FeaturesViewModel() {
 	var self = this;
 	self.features = ko.observableArray([
@@ -30,7 +41,10 @@ function FeaturesViewModel() {
 	self.selectFeatureClick = function(feature) {
 		self.selectedFeatureScenarios(feature.scenarios());
 	}
+	self.newScenario = ko.observable(new Scenario("New Scenario", ""));
 };
+
+// Helper
 function syntaxify(text) {
 	text = text.replace(/\n/g, '<br />');
 	text = text.replace(/Given/g, '<span class="cuke-keyword">Given</span>');
