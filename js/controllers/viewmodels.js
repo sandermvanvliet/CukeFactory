@@ -48,6 +48,7 @@ var FeaturesViewModel = function() {
 	};
 	self.selectFeature = function(feature) {
 		self.selectedFeature(feature);
+		self.newScenario(null);
 	};
 	self.loadFeatures = function() {
 		$.getJSON('data/features.json', function(data) {
