@@ -9,6 +9,7 @@
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 		<link href="css/CukeFactory.css" rel="stylesheet">
+		<link href="css/typeahead.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,7 +36,7 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 		        <li><a href="#">Browse features</a></li>
-		        <li><a href="#">Create new feature</a></li>
+		        <li><a href="#" data-bind="click: $root.createNewScenario">Create new scenario</a></li>
 		      </ul>
 		      <form class="navbar-form navbar-right" role="search">
 		        <div class="form-group">
@@ -53,36 +54,45 @@
 			</div>
 			<div class="panel-body">
 				<ul class="list-group" data-bind="foreach: features">
-						<li class="list-group-item" data-bind="click: $parent.selectFeatureClick">
+						<li class="list-group-item" data-bind="click: $parent.selectFeature">
 							<span class="badge" data-bind="text: scenarios().length"></span>
-							<span data-bind="text: name, click: $parent.selectFeatureClick"></span>
-						</li>
-				</ul>
-			</div>
-		</div>
-		<div class="scenariolist panel" data-bind="visible: selectedFeatureScenarios().length > 0">
-			<div class="panel-heading">
-				<h3 class="panel-title">Scenarios</h3>
-			</div>
-			<div class="panel-body">
-				<ul class="list-group" data-bind="foreach: selectedFeatureScenarios">
-						<li class="list-group-item">
 							<span data-bind="text: name"></span>
-							<div data-bind="html: specSyntaxed" class="scenarioSpec"></div>
 						</li>
 				</ul>
 			</div>
 		</div>
 
-		<div class="panel">
+		<div class="scenariolist panel" data-bind="visible: selectedFeature()">
 			<div class="panel-heading">
 				<h3 class="panel-title">Scenarios</h3>
 			</div>
-			<div class="panel-body">
-				<ul data-bind="foreach: newScenario().steps" class="list-group">
-					<li data-bind="text: stepText" class="list-group-item" />
+			<div class="panel-body" data-bind="with: selectedFeature">
+				<ul class="list-group" data-bind="foreach: scenarios">
+						<li class="list-group-item">
+							<span data-bind="text: name"></span>
+							<ul class="list-group" data-bind="foreach: steps">
+								<li class="list-group-item">
+									<span data-bind="text: type" class="cuke-keyword"></span>
+									<span	data-bind="text: text"></span>
+								</li>
+							</ul>
+						</li>
 				</ul>
-				<input id="stepTypeahead" class="typeahead" type="text" placeholder="Start typing" />
+			</div>
+		</div>
+
+		<div class="scenariolist panel" data-bind="visible: newScenario()">
+			<div class="panel-heading">
+				<h3 class="panel-title">New scenario</h3>
+			</div>
+			<div class="panel-body" data-bind="with: newScenario">
+				<ul data-bind="foreach: steps" class="list-group">
+					<li class="list-group-item">
+						<span data-bind="text: type" class="cuke-keyword"></span>
+						<span	data-bind="text: text"></span>
+					</li>
+				</ul>
+				<input id="stepTypeahead" class="typeahead tt-query" type="text" placeholder="Start typing" />
 			</div>
 		</div>
 
@@ -91,68 +101,52 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="bower_components/knockoutjs/knockout.js"></script>
-		<script src="bower_components/typeahead.js/dist/typeahead.bundle.min.js"></script>
-		<script src="js/controllers/features.js"></script>
+		<script src="bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
+		<script src="js/controllers/viewmodels.js"></script>
 		<script type="text/javascript">
 			var featuresViewModelInstance = new FeaturesViewModel();
+			featuresViewModelInstance.loadFeatures();
 			ko.applyBindings(featuresViewModelInstance);
 		</script>
 		<script type="text/javascript">
-			var givens = new Bloodhound({
-				datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
-				queryTokenizer: function(s) {
-					if(s.startsWith('Given'))
-					{
-						s = s.slice(5);
-					}
-					else if(s.startsWith('And'))
-					{
-						s = s.slice(3);
-					}
-
-					return s.split(/\s+/);
-				},
-				limit: 10,
-				local: 
-[
-	{
-		type: 'given',
-		text: 'the date is today'
-	},
-	{
-		type: 'given',
-		text: 'the internet is down'
-	},
-	{
-		type: 'given',
-		text: 'the internet is up'
-	}
-]
+			featuresViewModelInstance.onNewScenario = function() { initializeTypeAhead(); };
+function initializeTypeAhead()
+{
+	var allSteps = $.map(
+			featuresViewModelInstance.allSteps(),
+			function(step) {
+				return { text: step.text(), type: step.type() }
 			});
 
-			givens.initialize();
+	var givens = new Bloodhound({
+		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+		queryTokenizer: function(q) {
+			var tokens = Bloodhound.tokenizers.whitespace(q);
+			var ret = tokens.slice(1);
+			console.log(tokens);
+			console.log(ret);
+			return ret;
+		},
+		local: allSteps
+	});
 
-			$('#stepTypeahead').typeahead({
-				hint: true,
-				highlight: true,
-				minLength: 1
-			},
-			{
-				name: 'given',
-				displayKey: 'text',
-				source: givens.ttAdapter()
-			})
-			.on('typeahead:selected', function(event, selection) {
-				// Add step to the scenario
-				featuresViewModelInstance.newScenario().addStep(selection.type + ' ' + selection.text);
-				// Clear this box
-				$(this).val('');
-			});
+	givens.initialize();
 
-if (typeof String.prototype.startsWith != 'function') {
-  String.prototype.startsWith = function (str){
-    return this.slice(0, str.length) == str;
-  };
+	$('#stepTypeahead').typeahead(
+		{
+			hint: true,
+			highlight: true,
+			minLength: 1
+		},
+		{
+			name: 'given',
+			displayKey: 'text',
+			source: givens.ttAdapter()
+		})
+		.on('typeahead:selected', function(event, selection) {
+			featuresViewModelInstance.newScenario().addStep(new Step(selection.type, selection.text));
+			$('.typeahead').typeahead('val', '');
+		});
 }
 		</script>
   </body>

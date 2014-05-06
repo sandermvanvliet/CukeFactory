@@ -1,0 +1,51 @@
+{
+	"features": [
+	{
+		"name": "Search on Google",
+		"scenarios": [
+			{
+				"name": "Happy day",
+				"steps": [
+					{
+						"type": "Given",
+						"text": "a browser"
+					},
+					{
+						"type": "Given",
+						"text": "the Internet is up"
+					},
+					{
+						"type": "When",
+						"text": "I browse to Google"
+					},
+					{
+						"type": "Then",
+						"text": "I see the Google start page"
+					}
+				]
+			},
+			{
+				"name": "Sad day",
+				"steps": [
+					{
+						"type": "Given",
+						"text": "a browser"
+					},
+					{
+						"type": "Given",
+						"text": "the Internet is down"
+					},
+					{
+						"type": "When",
+						"text": "I browse to Google"
+					},
+					{
+						"type": "Then",
+						"text": "I see a browser error page"
+					}
+				]
+			}
+		]
+	}
+	]
+}
