@@ -25,8 +25,12 @@ body {
 	font-style: italic;
 	color: gray;
 }
+.cuke-step {
+	padding: 2px 4px;
+}
 /* Suggestions */
 #newScenario .typeahead {
 	display:block;
 	width:380px;
 }
+/* Steps */
