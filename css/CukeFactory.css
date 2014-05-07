@@ -26,7 +26,7 @@ body {
 	color: gray;
 }
 .cuke-step {
-	padding: 2px 4px;
+/*	padding: 2px 4px; */
 }
 /* Suggestions */
 #newScenario .typeahead {

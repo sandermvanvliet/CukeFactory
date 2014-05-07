@@ -17,6 +17,24 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+		<style type="text/css">
+			.cuke-panel {
+				width:400px;
+				height:800px;
+				float:left;
+				overflow:hidden;
+				margin-left:4px;
+			}
+			.cuke-panel-inner {
+				width:400px;
+				height:100%;
+			}
+			.cuke-container {
+				width:1216px;
+				padding: 4px 4px 4px 0;
+
+			}
+		</style>
   </head>
   <body>
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -35,7 +53,7 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-		        <li><a href="#">Browse features</a></li>
+						<li><a href="#" data-bind="click: $root.browseFeatures">Browse features</a></li>
 		        <li><a href="#" data-bind="click: $root.createNewScenario">Create new scenario</a></li>
 		      </ul>
 		      <form class="navbar-form navbar-right" role="search">
@@ -48,36 +66,37 @@
 		  </div><!-- /.container-fluid -->
 		</nav>
 
-		<div class="featurelist panel">
-			<div class="panel-heading">
-				<h3 class="panel-title">Features</h3>
-			</div>
-			<div class="panel-body">
+		<div class="cuke-container">
+			<div class="cuke-panel">
+				<div class="cuke-panel-inner">
 				<ul class="list-group" data-bind="foreach: features">
 						<li class="list-group-item" data-bind="click: $parent.selectFeature">
 							<span class="badge" data-bind="text: scenarios().length"></span>
 							<span data-bind="text: name"></span>
 						</li>
 				</ul>
+				</div>
 			</div>
-		</div>
 
-		<div class="scenariolist panel" data-bind="visible: selectedFeature()">
-			<div class="panel-heading">
-				<h3 class="panel-title">Scenarios</h3>
-			</div>
-			<div class="panel-body" data-bind="with: selectedFeature">
+			<div class="cuke-panel" data-bind="with: selectedFeature, visible: selectedFeature">
+				<div class="cuke-panel-inner">
 				<ul class="list-group" data-bind="foreach: scenarios">
-						<li class="list-group-item">
-							<span data-bind="text: name"></span>
-							<ul class="list-group" data-bind="foreach: steps">
-								<li class="list-group-item cuke-step">
-									<span data-bind="text: type" class="cuke-keyword"></span>
-									<span	data-bind="text: text"></span>
-								</li>
-							</ul>
-						</li>
+					<li class="list-group-item" data-bind="click: $root.selectScenario">
+						<span data-bind="text: name"></span>
+					</li>
 				</ul>
+			</div>
+			</div>
+
+			<div class="cuke-panel" data-bind="with: selectedScenario, visible: selectedScenario">
+				<div class="cuke-panel-inner">
+				<ul class="list-group" data-bind="foreach: steps">
+					<li class="list-group-item cuke-step">
+						<span data-bind="text: type" class="cuke-keyword"></span>
+						<span	data-bind="text: text"></span>
+					</li>
+				</ul>
+				</div>
 			</div>
 		</div>
 

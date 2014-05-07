@@ -38,6 +38,7 @@ var FeaturesViewModel = function() {
 	var self = this;
 	self.features = ko.observableArray([]);
 	self.selectedFeature = ko.observable();
+	self.selectedScenario = ko.observable();
 	self.newScenario = ko.observable();
 	self.onNewScenario = function() { };
 	self.createNewScenario = function() {
@@ -50,8 +51,17 @@ var FeaturesViewModel = function() {
 		self.selectedFeature(feature);
 		self.newScenario(null);
 	};
+	self.selectScenario = function(scenario) {
+		self.selectedScenario(scenario);
+	};
+	self.browseFeatures = function() {
+		self.selectedFeature(null);
+		self.selectedScenario(null);
+		self.newScenario(null);
+	};
 	self.loadFeatures = function() {
-		$.getJSON('http://localhost:8080/cukes', function(data) {
+		//$.getJSON('http://localhost:8080/cukes', function(data) {
+		$.getJSON('data/features.json', function(data) {
 			$.each(data.features, function(index,elem) {
 				var feature = new Feature(elem.name);
 				$.each(elem.scenarios, function(index,scenarioData) {
@@ -76,4 +86,24 @@ var FeaturesViewModel = function() {
 			})
 		});
 	});
+};
+ko.bindingHandlers.expando ={
+	init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+					$(element).css('width', '0px');
+				},
+	update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+						var value = ko.unwrap(valueAccessor());
+						if(value !== undefined)
+						{
+							$(element).animate({ width:'400px'},500);
+							$(element).prev().animate({width:'100px'},500);
+							$(element).nextAll().animate({width:'0px'},500);
+						}
+						else
+						{
+							var e = $(element).siblings().eq(0);
+							console.log(e);
+							e.animate({width:'400px'},500);
+						}
+					}
 };
