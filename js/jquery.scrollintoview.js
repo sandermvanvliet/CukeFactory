@@ -93,12 +93,14 @@
 			// check if there's anything to scroll in the first place
 			if (scroller.length > 0)
 			{
-				scroller = scroller.eq(0);
+				scroller = scroller.eq(0)
 
 				var dim = {
 					e: dimensions(el),
 					s: dimensions(scroller)
 				};
+
+				console.log(dim);
 
 				var rel = {
 					top: dim.e.rect.top - (dim.s.rect.top + dim.s.border.top),
@@ -114,11 +116,15 @@
 				{
 					if (rel.top < 0)
 					{
-						animOptions.scrollTop = dim.s.scroll.top + rel.top;
+						var toScroll = dim.s.scroll.top + rel.top;
+						console.log('toScroll: ' + toScroll);
+						animOptions.scrollTop = toScroll;
 					}
 					else if (rel.top > 0 && rel.bottom < 0)
 					{
-						animOptions.scrollTop = dim.s.scroll.top + Math.min(rel.top, -rel.bottom);
+						var toScroll = dim.s.scroll.top + Math.min(rel.top, -rel.bottom);
+						console.log('toScroll: ' + toScroll);
+						animOptions.scrollTop = toScroll;
 					}
 				}
 

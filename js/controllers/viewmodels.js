@@ -93,7 +93,7 @@ ko.bindingHandlers.intoView =
 		update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 							var value = ko.unwrap(valueAccessor());
 							if(value !== undefined) {
-								$(element).scrollintoview({direction:"horizontal"});
+								$(element).scrollintoview();
 							}
 						}
 	};

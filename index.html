@@ -31,8 +31,12 @@
 			}
 			.cuke-container {
 				width:1216px;
+				height:804px;
+			}
+			#cuke-outer {
+				width:100%;
 				padding: 4px 4px 4px 0;
-
+				overflow:auto;
 			}
 		</style>
   </head>
@@ -65,9 +69,9 @@
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
-
-		<div class="cuke-container">
-			<div class="cuke-panel">
+		<div id="cuke-outer">
+		<div class="cuke-container" id="cuke-container">
+			<div class="cuke-panel" id="features">
 				<div class="cuke-panel-inner">
 				<ul class="list-group" data-bind="foreach: features">
 						<li class="list-group-item" data-bind="click: $parent.selectFeature, intoView: $root.selectedFeature">
@@ -78,7 +82,7 @@
 				</div>
 			</div>
 
-			<div class="cuke-panel" data-bind="with: selectedFeature, visible: selectedFeature">
+			<div class="cuke-panel" id="scenarios" data-bind="with: selectedFeature, visible: selectedFeature">
 				<div class="cuke-panel-inner">
 				<ul class="list-group" data-bind="foreach: scenarios">
 					<li class="list-group-item" data-bind="click: $root.selectScenario">
@@ -88,7 +92,7 @@
 			</div>
 			</div>
 
-			<div class="cuke-panel" data-bind="with: selectedScenario, visible: selectedScenario, intoView: selectedScenario">
+			<div class="cuke-panel" id="steps" data-bind="with: selectedScenario, visible: selectedScenario, intoView: selectedScenario">
 				<div class="cuke-panel-inner">
 				<ul class="list-group" data-bind="foreach: steps">
 					<li class="list-group-item cuke-step">
@@ -99,6 +103,7 @@
 				</div>
 			</div>
 		</div>
+	</div> <!-- cuke-outer -->
 
 		<div class="scenariolist panel" data-bind="visible: newScenario()">
 			<div class="panel-heading">
@@ -122,7 +127,7 @@
 		<script src="bower_components/knockoutjs/knockout.js"></script>
 		<script src="bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
 		<script src="js/controllers/viewmodels.js"></script>
-		<script src="js/jquery.scrollintoview.min.js"></script>
+		<script src="js/jquery.scrollintoview.js"></script>
 		<script type="text/javascript">
 			var featuresViewModelInstance = new FeaturesViewModel();
 			featuresViewModelInstance.loadFeatures();
