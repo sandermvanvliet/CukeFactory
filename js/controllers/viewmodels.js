@@ -61,8 +61,8 @@ var FeaturesViewModel = function() {
 		self.newScenario(null);
 	};
 	self.loadFeatures = function() {
-		//$.getJSON('http://localhost:8080/cukes', function(data) {
-		$.getJSON('data/features.json', function(data) {
+		$.getJSON('http://localhost:8080/cukes', function(data) {
+		//$.getJSON('data/features.json', function(data) {
 			$.each(data.features, function(index,elem) {
 				var feature = new Feature(elem.name);
 				$.each(elem.scenarios, function(index,scenarioData) {
