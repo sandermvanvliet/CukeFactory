@@ -27,6 +27,11 @@ module.exports.CukeParser = function() {
 											self.feature.scenarios.push(self.currentScenario);
 										},
 		handleStep: function(keyword, name, line) { 
+									keyword = keyword.trim();
+									// Handle the 'And' keyword
+									if(keyword.toLowerCase() === 'and') {
+										keyword = self.currentScenario.steps[self.currentScenario.steps.length-1].type;
+									}
 									self.currentScenario.steps.push({ type: keyword.trim(), text: name.trim() });
 								},
 			feature: null,
