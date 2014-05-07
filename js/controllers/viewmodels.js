@@ -49,6 +49,7 @@ var FeaturesViewModel = function() {
 	};
 	self.selectFeature = function(feature) {
 		self.selectedFeature(feature);
+		self.selectedScenario(null);
 		self.newScenario(null);
 	};
 	self.selectScenario = function(scenario) {
@@ -87,6 +88,15 @@ var FeaturesViewModel = function() {
 		});
 	});
 };
+ko.bindingHandlers.intoView = 
+	{
+		update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+							var value = ko.unwrap(valueAccessor());
+							if(value !== undefined) {
+								$(element).scrollintoview({direction:"horizontal"});
+							}
+						}
+	};
 ko.bindingHandlers.expando ={
 	init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
 					$(element).css('width', '0px');
