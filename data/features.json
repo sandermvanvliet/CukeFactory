@@ -46,6 +46,49 @@
 				]
 			}
 		]
+	},
+	{
+		"name": "Search on GitHub",
+		"scenarios": [
+			{
+				"name": "Search for CukeFactory on GitHub",
+				"steps": [
+					{
+						"type": "Given",
+						"text": "a browser"
+					},
+					{
+						"type": "Given",
+						"text": "I created the project CukeFactory"
+					},
+					{
+						"type": "When",
+						"text": "I search for CukeFactory"
+					},
+					{
+						"type": "Then",
+						"text": "I see CukeFactory in the search results"
+					}
+				]
+			},
+			{
+				"name": "Search for Non-existent project on GitHub",
+				"steps": [
+					{
+						"type": "Given",
+						"text": "a browser"
+					},
+					{
+						"type": "When",
+						"text": "I search for ThisProjectDoesNotExist"
+					},
+					{
+						"type": "Then",
+						"text": "the search results are empty"
+					}
+				]
+			}
+		]
 	}
 	]
 }
