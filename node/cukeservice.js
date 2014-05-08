@@ -37,12 +37,16 @@ function listAllCukes(req, res, next) {
 		if(err) throw err;
 
 		async.each(files, function(cuke, callback) {
-			var data = fs.readFileSync(configuration.cukesPath + '/' + cuke, 'utf8');
+			var type = cuke.slice(-7).toLowerCase();
+			console.log('type: ' + type);
+			if(type == 'feature') { 
+				var data = fs.readFileSync(configuration.cukesPath + '/' + cuke, 'utf8');
 
-			var parserInst = require('./CukeParser.js').CukeParser();
-			parserInst.parse(data);
+				var parserInst = require('./CukeParser.js').CukeParser();
+				parserInst.parse(data);
 
-			response.features.push(parserInst.feature);
+				response.features.push(parserInst.feature);
+			}
 
 			callback();
 		},
