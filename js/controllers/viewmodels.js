@@ -62,7 +62,7 @@ var FeaturesViewModel = function() {
 	};
 	self.loadFeatures = function() {
 		$.getJSON('http://localhost:8080/cukes', function(data) {
-		//$.getJSON('data/features.json', function(data) {
+			var newFeatures = [];
 			$.each(data.features, function(index,elem) {
 				var feature = new Feature(elem.name);
 				$.each(elem.scenarios, function(index,scenarioData) {
@@ -73,8 +73,9 @@ var FeaturesViewModel = function() {
 					});
 					feature.addScenario(scenario);
 				});
-				self.features.push(feature);
+				newFeatures.push(feature);
 			});
+			self.features(newFeatures);
 		}).error(function(jqXHR, textStatus, errorThrown) { console.log('error: ' + textStatus);
 	 console.log(jqXHR.responseText);	});
 	};
@@ -86,6 +87,22 @@ var FeaturesViewModel = function() {
 				})
 			})
 		});
+	});
+	self.searchBoxIndex = ko.computed(function() {
+		return $.map(self.features(), function(feature) {
+			if(feature.scenarios !== undefined) {
+				return $.map(feature.scenarios(), function(scenario) {
+						if(scenario.steps !== undefined)
+						{
+							return $.map(scenario.steps(), function(step) {
+								return { text: step.text(), type: 'step' };
+								}).concat([{text: scenario.name(), type: 'scenario'}]);
+						}
+						return { text: scenario.name(), type: 'scenario' }
+						}).concat([ { text: feature.name(), type: 'feature' }]);
+				}
+				return { text: feature.name(), type: 'feature' };
+			});
 	});
 };
 ko.bindingHandlers.intoView = 

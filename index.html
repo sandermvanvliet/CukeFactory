@@ -62,7 +62,7 @@
 		      </ul>
 		      <form class="navbar-form navbar-right" role="search">
 		        <div class="form-group">
-		          <input type="text" class="form-control" placeholder="Search">
+		          <input type="text" class="form-control" placeholder="Search" id="searchBox">
 		        </div>
 		        <button type="submit" class="btn btn-default">Go</button>
 		      </form>
@@ -132,47 +132,22 @@
 			var featuresViewModelInstance = new FeaturesViewModel();
 			featuresViewModelInstance.loadFeatures();
 			ko.applyBindings(featuresViewModelInstance);
-		</script>
-		<script type="text/javascript">
-			featuresViewModelInstance.onNewScenario = function() { initializeTypeAhead(); };
-function initializeTypeAhead()
-{
-	var allSteps = $.map(
-			featuresViewModelInstance.allSteps(),
-			function(step) {
-				return { text: step.text(), type: step.type() }
-			});
-
-	var givens = new Bloodhound({
-		datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
-		queryTokenizer: function(q) {
-			var tokens = Bloodhound.tokenizers.whitespace(q);
-			var ret = tokens.slice(1);
-			console.log(tokens);
-			console.log(ret);
-			return ret;
-		},
-		local: allSteps
-	});
-
-	givens.initialize();
-
-	$('#stepTypeahead').typeahead(
-		{
-			hint: true,
-			highlight: true,
-			minLength: 1
-		},
-		{
-			name: 'given',
-			displayKey: 'text',
-			source: givens.ttAdapter()
-		})
-		.on('typeahead:selected', function(event, selection) {
-			featuresViewModelInstance.newScenario().addStep(new Step(selection.type, selection.text));
-			$('.typeahead').typeahead('val', '');
-		});
-}
-		</script>
+			featuresViewModelInstance.features.subscribe(function (newValue) {
+						if(newValue !== undefined) {
+							new TypeAhead('#searchBox').initialize(featuresViewModelInstance.searchBoxIndex());
+						}
+					}, this);
+			featuresViewModelInstance.selectedScenario.subscribe(function (newValue) {
+					if(newValue !== undefined) {
+					new TypeAhead('#stepTypeahead').initialize(
+						featuresViewModelInstance.allSteps(),
+						function(event,selection) {
+							featuresViewModelInstance.newScenario().addStep(new Step(selection.type, selection.text));
+							$('.typeahead').typeahead('val', '');
+						});
+					}
+			}, this);
+			</script>
+			<script src="js/controllers/typeahead.js"></script>
   </body>
 </html>
