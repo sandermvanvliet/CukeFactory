@@ -22,9 +22,9 @@ var TypeAhead = function(selector) {
 			displayKey: 'text',
 			source: self.dataSource.ttAdapter()
 		});
-
+		
 		if(callback !== undefined) {
 			promise.on('typeahead:selected', callback);
 		}
-	}
+	};
 };

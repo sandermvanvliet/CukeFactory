@@ -88,22 +88,12 @@ var FeaturesViewModel = function() {
 			})
 		});
 	});
-	self.searchBoxIndex = ko.computed(function() {
-		return $.map(self.features(), function(feature) {
-			if(feature.scenarios !== undefined) {
-				return $.map(feature.scenarios(), function(scenario) {
-						if(scenario.steps !== undefined)
-						{
-							return $.map(scenario.steps(), function(step) {
-								return { text: step.text(), type: 'step' };
-								}).concat([{text: scenario.name(), type: 'scenario'}]);
-						}
-						return { text: scenario.name(), type: 'scenario' }
-						}).concat([ { text: feature.name(), type: 'feature' }]);
-				}
-				return { text: feature.name(), type: 'feature' };
-			});
-	});
+	self.searchBoxIndex = ko.observableArray();
+	self.refreshSearchBox = function() {
+		$.getJSON('http://localhost:8080/searchindex', function(data) {
+				self.searchBoxIndex(data);
+				});
+	};
 };
 ko.bindingHandlers.intoView = 
 	{

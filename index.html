@@ -128,26 +128,25 @@
 		<script src="bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
 		<script src="js/controllers/viewmodels.js"></script>
 		<script src="js/jquery.scrollintoview.js"></script>
+		<script src="js/controllers/typeahead.js"></script>
 		<script type="text/javascript">
 			var featuresViewModelInstance = new FeaturesViewModel();
 			featuresViewModelInstance.loadFeatures();
 			ko.applyBindings(featuresViewModelInstance);
-			featuresViewModelInstance.features.subscribe(function (newValue) {
-						if(newValue !== undefined) {
-							new TypeAhead('#searchBox').initialize(featuresViewModelInstance.searchBoxIndex());
+			featuresViewModelInstance.features.subscribe(function(newValue) {
+					if(newValue !== undefined) {
+						featuresViewModelInstance.refreshSearchBox();
+					}
+				});
+			featuresViewModelInstance.searchBoxIndex.subscribe(function (newValue) {
+					if(newValue !== undefined) {
+						new TypeAhead('#searchBox').initialize(
+							newValue,
+							function(event,selection) {
+								console.log(selection);
+							});
 						}
 					}, this);
-			featuresViewModelInstance.selectedScenario.subscribe(function (newValue) {
-					if(newValue !== undefined) {
-					new TypeAhead('#stepTypeahead').initialize(
-						featuresViewModelInstance.allSteps(),
-						function(event,selection) {
-							featuresViewModelInstance.newScenario().addStep(new Step(selection.type, selection.text));
-							$('.typeahead').typeahead('val', '');
-						});
-					}
-			}, this);
 			</script>
-			<script src="js/controllers/typeahead.js"></script>
   </body>
 </html>
