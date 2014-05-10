@@ -39,7 +39,6 @@ function listAllCukes(req, res, next) {
 
 		async.each(files, function(cuke, callback) {
 			var type = cuke.slice(-7).toLowerCase();
-			console.log('type: ' + type);
 			if(type == 'feature') { 
 				var data = fs.readFileSync(configuration.cukesPath + '/' + cuke, 'utf8');
 
@@ -53,8 +52,6 @@ function listAllCukes(req, res, next) {
 		},
 		function(err) {
 			if(err) throw err;
-
-			console.log('responding with ' + response.features.length + ' cukes');
 
 			self.currentFeatures = response.features;
 
@@ -86,8 +83,6 @@ function searchIndex(req, res, next) {
 	var dedupe = require('dedupe');
 
 	var dedupedResponse = dedupe(response);
-
-	console.log(dedupedResponse);
 
 	res.send(200, dedupedResponse);
 }
