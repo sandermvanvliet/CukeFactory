@@ -6,6 +6,7 @@
 	"dependencies": {
 		"async": "0.8.x",
 		"dedupe": "0.2.5",
-		"gherkin": "2.12.*"
+		"gherkin": "2.12.*",
+		"restify": "2.7.0"
 	}
 }
