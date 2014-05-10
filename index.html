@@ -144,7 +144,9 @@
 						new TypeAhead('#searchBox').initialize(
 							newValue,
 							function(event,selection) {
-								console.log(selection);
+								if(selection !== undefined) {
+									console.log(selection);
+								}
 							});
 						}
 					}, this);

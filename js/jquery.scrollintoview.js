@@ -100,8 +100,6 @@
 					s: dimensions(scroller)
 				};
 
-				console.log(dim);
-
 				var rel = {
 					top: dim.e.rect.top - (dim.s.rect.top + dim.s.border.top),
 					bottom: dim.s.rect.bottom - dim.s.border.bottom - dim.s.scrollbar.bottom - dim.e.rect.bottom,
