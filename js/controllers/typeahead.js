@@ -20,7 +20,16 @@ var TypeAhead = function(selector) {
 		{
 			name: 'searchResults',
 			displayKey: 'text',
-			source: self.dataSource.ttAdapter()
+			source: self.dataSource.ttAdapter(),
+			templates: {
+				empty: [
+					'<div class="empty-message">',
+					'unable to find any matches',
+					'</div>'
+				].join(''),
+				suggestion: Handlebars.compile('<p class="cuke-type">{{type}} - {{text}}</p>')
+			},
+			engine: Handlebars
 		});
 		
 		if(callback !== undefined) {
