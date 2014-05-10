@@ -1,0 +1,11 @@
+{
+	"name": "CukeFactory",
+	"description": "CukeFactory, the on-line Gherkin browser and editor",
+	"version": "0.0.1",
+	"private": "true",
+	"dependencies": {
+		"async": "0.8.x",
+		"dedupe": "0.2.5",
+		"gherkin": "2.12.*"
+	}
+}
