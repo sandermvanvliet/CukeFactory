@@ -62,7 +62,7 @@
 		      </ul>
 		      <form class="navbar-form navbar-right" role="search">
 		        <div class="form-group">
-		          <input type="text" class="form-control" placeholder="Search" id="searchBox">
+		          <input type="text" class="form-control typeahead" placeholder="Search" id="searchBox">
 		        </div>
 		        <button type="submit" class="btn btn-default">Go</button>
 		      </form>
@@ -104,21 +104,6 @@
 			</div>
 		</div>
 	</div> <!-- cuke-outer -->
-
-		<div class="scenariolist panel" data-bind="visible: newScenario()">
-			<div class="panel-heading">
-				<h3 class="panel-title">New scenario</h3>
-			</div>
-			<div class="panel-body" data-bind="with: newScenario">
-				<ul data-bind="foreach: steps" class="list-group">
-					<li class="list-group-item">
-						<span data-bind="text: type" class="cuke-keyword"></span>
-						<span	data-bind="text: text"></span>
-					</li>
-				</ul>
-				<input id="stepTypeahead" class="typeahead tt-query" type="text" placeholder="Start typing" />
-			</div>
-		</div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>

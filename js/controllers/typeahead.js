@@ -23,12 +23,7 @@ var TypeAhead = function(selector) {
 			valueKey: 'text',
 			source: self.dataSource.ttAdapter(),
 			templates: {
-				empty: [
-					'<div class="empty-message">',
-					'unable to find any matches',
-					'</div>'
-				].join(''),
-				suggestion: Handlebars.compile('<p class="tt-suggestion"><span class="cuke-type">{{type}}</span> - {{text}}</p>')
+				suggestion: Handlebars.compile('<p><span class="cuke-type">{{type}}</span> - {{text}}</p>'),
 			},
 			engine: Handlebars
 		});

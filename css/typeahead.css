@@ -41,10 +41,9 @@
     padding: 3px 20px 3px 5px;
     line-height: 20px;
 }
-
-.tt-suggestion.tt-is-under-cursor {
-    color: #fff;
-    background-color: #0097cf;
+.tt-suggestion.tt-is-under-cursor, .tt-suggestion.tt-cursor {
+    color: #fff !important;
+    background-color: #0097cf !important;
 
 }
 
