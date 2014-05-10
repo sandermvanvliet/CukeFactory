@@ -20,6 +20,7 @@ var TypeAhead = function(selector) {
 		{
 			name: 'searchResults',
 			displayKey: 'text',
+			valueKey: 'text',
 			source: self.dataSource.ttAdapter(),
 			templates: {
 				empty: [
@@ -27,7 +28,7 @@ var TypeAhead = function(selector) {
 					'unable to find any matches',
 					'</div>'
 				].join(''),
-				suggestion: Handlebars.compile('<p class="cuke-type">{{type}} - {{text}}</p>')
+				suggestion: Handlebars.compile('<p class="tt-suggestion"><span class="cuke-type">{{type}}</span> - {{text}}</p>')
 			},
 			engine: Handlebars
 		});
@@ -35,5 +36,17 @@ var TypeAhead = function(selector) {
 		if(callback !== undefined) {
 			promise.on('typeahead:selected', callback);
 		}
+
+		promise.on('typeahead:opened', function() {
+			var dropdown = $('.tt-dropdown-menu');
+
+			var windowWidth = $(window).width();
+			var dropdownWidth = dropdown.outerWidth() + 4;
+			var textboxPosition = $(this).offset().left;
+
+			var left = ((textboxPosition + dropdownWidth) - windowWidth) * -1;
+
+			dropdown.css('left', left + 'px');
+		});
 	};
 };

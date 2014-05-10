@@ -18,14 +18,15 @@
 }
 
 .tt-hint {
-    color: #999
+	margin-top:2px;
+  color: #999
 }
 
 .tt-dropdown-menu {
     width: 422px;
     margin-top: 12px;
     padding: 8px 0;
-    background-color: #fff;
+    background-color: #ffffff;
     border: 1px solid #ccc;
     border: 1px solid rgba(0, 0, 0, 0.2);
     -webkit-border-radius: 8px;
@@ -37,7 +38,7 @@
 }
 
 .tt-suggestion {
-    padding: 3px 20px;
+    padding: 3px 20px 3px 5px;
     line-height: 20px;
 }
 
@@ -49,4 +50,8 @@
 
 .tt-suggestion p {
     margin: 0;
+}
+.cuke-type {
+	font-weight:bold;
+	text-transform: capitalize;
 }
