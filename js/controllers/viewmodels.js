@@ -6,10 +6,12 @@ var Feature = function(name) {
 		self.scenarios.push(scenario);
 	};
 	self.file = ko.observable();
+	self.selected = ko.observable(false);
 };
 var Scenario = function(name) {
 	var self = this;
 	self.type = ko.observable('Scenario');
+	self.selected = ko.observable(false);
 	self.name = ko.observable(name);
 	self.givens = ko.observableArray([]);
 	self.whens = ko.observableArray([]);
@@ -29,6 +31,10 @@ var Scenario = function(name) {
 			self.thens.push(step);
 		}
 	};
+	self.scenarioClass = ko.computed(function() {
+		var ret = self.selected() ? 'cuke-selected' : '';
+		return ret + (self.type() == 'Background' ? ' cuke-feature-background' : '');
+	});
 };
 var Step = function(type, text) {
 	var self = this;
@@ -53,9 +59,13 @@ var FeaturesViewModel = function() {
 		self.selectedFeature(feature);
 		self.selectedScenario(null);
 		self.newScenario(null);
+		self.features().forEach(function(item) { item.selected(false); });
+		feature.selected(true);
 	};
 	self.selectScenario = function(scenario) {
 		self.selectedScenario(scenario);
+		self.selectedFeature().scenarios().forEach(function(item) { item.selected(false); });
+		scenario.selected(true);
 	};
 	self.browseFeatures = function() {
 		self.selectedFeature(null);

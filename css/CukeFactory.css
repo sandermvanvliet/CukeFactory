@@ -34,6 +34,10 @@ body {
 .cuke-feature-background {
 	color: blue;
 }
+.cuke-selected {
+	background:#428bca;
+	color:white;
+}
 /* Suggestions */
 #newScenario .typeahead {
 	display:block;
