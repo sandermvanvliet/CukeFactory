@@ -20,17 +20,17 @@ module.exports.CukeParser = function() {
 						 lexer.scan(data);
 					 },
 		handleBackground: function(keyword, name, description, line) {
-												self.background = { name: name, description: description, steps: [] };
+												self.feature.background = { steps: [] };
 											},
 		handleFeature: function(keyword, name, description, line) {
-										 self.feature = { name: name, description: description, scenarios: [], tags: self.featureTags };
+										 self.feature = { name: name, description: description, scenarios: [], tags: self.featureTags, background: null };
 									 },
 		handleScenario: function(keyword, name, description, line) { 
 											self.currentScenario = { name: name, steps: [], tags: [] };
 											self.feature.scenarios.push(self.currentScenario);
 										},
 		handleStep: function(keyword, name, line) { 
-									var steps = self.currentScenario == null ? self.background.steps : self.currentScenario.steps;
+									var steps = self.currentScenario == null ? self.feature.background.steps : self.currentScenario.steps;
 									keyword = keyword.trim();
 									// Handle the 'And' keyword
 									if(keyword.toLowerCase() === 'and') {
@@ -53,7 +53,6 @@ module.exports.CukeParser = function() {
 								 },
 			feature: null,
 			currentScenario: null,
-			background: null,
 			featureTags: []
 	};
 

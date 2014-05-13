@@ -85,7 +85,7 @@
 			<div class="cuke-panel" id="scenarios" data-bind="with: selectedFeature, visible: selectedFeature">
 				<div class="cuke-panel-inner">
 				<ul class="list-group" data-bind="foreach: scenarios">
-					<li class="list-group-item" data-bind="click: $root.selectScenario">
+					<li class="list-group-item" data-bind="click: $root.selectScenario, css: type() == 'Background' ? 'cuke-feature-background' : ''">
 						<span data-bind="text: name"></span>
 					</li>
 				</ul>

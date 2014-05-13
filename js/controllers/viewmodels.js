@@ -8,6 +8,7 @@ var Feature = function(name) {
 };
 var Scenario = function(name) {
 	var self = this;
+	self.type = ko.observable('Scenario');
 	self.name = ko.observable(name);
 	self.givens = ko.observableArray([]);
 	self.whens = ko.observableArray([]);
@@ -73,6 +74,15 @@ var FeaturesViewModel = function() {
 					});
 					feature.addScenario(scenario);
 				});
+				if(elem.background !== undefined && elem.background !== null) {
+					var background = new Scenario("Background");
+					background.type('Background');
+					$.each(elem.background.steps, function(index, stepData) {
+						var step = new Step(stepData.type, stepData.text);
+						background.addStep(step);
+					});
+					feature.scenarios.splice(0, 0, background);
+				}
 				newFeatures.push(feature);
 			});
 			self.features(newFeatures);
