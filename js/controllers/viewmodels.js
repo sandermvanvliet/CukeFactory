@@ -56,11 +56,12 @@ var FeaturesViewModel = function() {
 		self.onNewScenario();
 	};
 	self.selectFeature = function(feature) {
-		self.selectedFeature(feature);
 		self.selectedScenario(null);
 		self.newScenario(null);
 		self.features().forEach(function(item) { item.selected(false); });
 		feature.selected(true);
+		feature.scenarios().forEach(function(item) { item.selected(false); });
+		self.selectedFeature(feature);
 	};
 	self.selectScenario = function(scenario) {
 		self.selectedScenario(scenario);
