@@ -42,6 +42,7 @@ function listAllCukes(req, res, next) {
 			if(type == 'feature') { 
 				var data = fs.readFileSync(configuration.cukesPath + '/' + cuke, 'utf8');
 
+				console.log('parsing ' + cuke);
 				var parserInst = require('./CukeParser.js').CukeParser();
 				parserInst.parse(data);
 
