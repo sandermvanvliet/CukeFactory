@@ -77,7 +77,13 @@ function searchIndex(req, res, next) {
 						response.push({ text: step.text, type: 'step' });
 					});
 				}
+				if(scenario.tags !== undefined) {
+					scenario.tags.forEach(function(tag) { response.push({ text: tag, type: 'tag'}); });
+				}
 			});
+		}
+		if(feature.tags !== undefined) {
+			feature.tags.forEach(function(tag) { response.push({ text: tag, type: 'tag' }); });
 		}
 	});
 
