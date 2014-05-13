@@ -3,10 +3,21 @@
 	"description": "CukeFactory, the on-line Gherkin browser and editor",
 	"version": "0.0.1",
 	"private": "true",
+	"bugs": {
+		"url": "https://github.com/sandermvanvliet/CukeFactory/issues"
+	},	
+	"repository":
+	{
+		"type": "git",
+		"url": "https://github.com/sandermvanvliet/CukeFactory"
+	},
 	"dependencies": {
-		"async": "0.8.x",
-		"dedupe": "0.2.5",
-		"gherkin": "2.12.*",
-		"restify": "2.7.0"
+		"async": "~0.8.x",
+		"dedupe": ">=0.2.5",
+		"gherkin": "~2.12.x",
+		"restify": "~2.7.0"
+	},
+	"devDependencies": {
+		"bower": ">=1.3.3"
 	}
 }
