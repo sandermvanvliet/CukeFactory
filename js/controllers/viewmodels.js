@@ -7,6 +7,12 @@ var Feature = function(name) {
 	};
 	self.file = ko.observable();
 	self.selected = ko.observable(false);
+	self.selectScenario = function(scenario) {
+		self.scenarios().forEach(function(item) { item.selected(false); });
+		if(scenario !== null) {
+			scenario.selected(true);
+		}
+	};
 };
 var Scenario = function(name) {
 	var self = this;
@@ -60,13 +66,12 @@ var FeaturesViewModel = function() {
 		self.newScenario(null);
 		self.features().forEach(function(item) { item.selected(false); });
 		feature.selected(true);
-		feature.scenarios().forEach(function(item) { item.selected(false); });
+		feature.selectScenario(null);
 		self.selectedFeature(feature);
 	};
 	self.selectScenario = function(scenario) {
 		self.selectedScenario(scenario);
-		self.selectedFeature().scenarios().forEach(function(item) { item.selected(false); });
-		scenario.selected(true);
+		self.selectedFeature().selectScenario(scenario);
 	};
 	self.browseFeatures = function() {
 		self.selectedFeature(null);
