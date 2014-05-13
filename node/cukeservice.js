@@ -46,6 +46,7 @@ function listAllCukes(req, res, next) {
 				var parserInst = require('./CukeParser.js').CukeParser();
 				parserInst.parse(data);
 
+				parserInst.feature.file = cuke;
 				response.features.push(parserInst.feature);
 			}
 

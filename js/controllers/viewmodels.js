@@ -5,6 +5,7 @@ var Feature = function(name) {
 	self.addScenario = function(scenario) {
 		self.scenarios.push(scenario);
 	};
+	self.file = ko.observable();
 };
 var Scenario = function(name) {
 	var self = this;
@@ -66,6 +67,7 @@ var FeaturesViewModel = function() {
 			var newFeatures = [];
 			$.each(data.features, function(index,elem) {
 				var feature = new Feature(elem.name);
+				feature.file(elem.file);
 				$.each(elem.scenarios, function(index,scenarioData) {
 					var scenario = new Scenario(scenarioData.name);
 					$.each(scenarioData.steps, function(index,stepData) {

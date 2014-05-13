@@ -23,7 +23,7 @@ module.exports.CukeParser = function() {
 												self.feature.background = { steps: [] };
 											},
 		handleFeature: function(keyword, name, description, line) {
-										 self.feature = { name: name, description: description, scenarios: [], tags: self.featureTags, background: null };
+										 self.feature = { name: name, description: description, scenarios: [], tags: self.featureTags, background: null, file: '' };
 									 },
 		handleScenario: function(keyword, name, description, line) { 
 											self.currentScenario = { name: name, steps: [], tags: [] };

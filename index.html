@@ -74,7 +74,7 @@
 			<div class="cuke-panel" id="features">
 				<div class="cuke-panel-inner">
 				<ul class="list-group" data-bind="foreach: features">
-						<li class="list-group-item" data-bind="click: $parent.selectFeature, intoView: $root.selectedFeature">
+					<li class="list-group-item" data-bind="click: $parent.selectFeature, intoView: $root.selectedFeature, attr: { title: file }">
 							<span class="badge" data-bind="text: scenarios().length"></span>
 							<span data-bind="text: name"></span>
 						</li>
