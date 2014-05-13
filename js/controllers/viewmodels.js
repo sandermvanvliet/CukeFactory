@@ -127,23 +127,3 @@ ko.bindingHandlers.intoView =
 							}
 						}
 	};
-ko.bindingHandlers.expando ={
-	init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-					$(element).css('width', '0px');
-				},
-	update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-						var value = ko.unwrap(valueAccessor());
-						if(value !== undefined)
-						{
-							$(element).animate({ width:'400px'},500);
-							$(element).prev().animate({width:'100px'},500);
-							$(element).nextAll().animate({width:'0px'},500);
-						}
-						else
-						{
-							var e = $(element).siblings().eq(0);
-							console.log(e);
-							e.animate({width:'400px'},500);
-						}
-					}
-};
