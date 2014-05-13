@@ -9,12 +9,12 @@ module.exports.CukeParser = function() {
 								doc_string: function(contentType, string, line) { },
 								eof: function() { },
 								feature: self.handleFeature,
-								row: function(cells, line) { console.log('row: ' + cells); },
+								row: function(cells, line) { },
 								scenario: self.handleScenario,
 								step: self.handleStep,
 								tag: self.handleTag,
-								scenario_outline: function(keyword, name, description, line) { console.log('scenario_outline'); },
-								examples: function(keyword, name, description, line) { console.log('examples'); }
+								scenario_outline: function(keyword, name, description, line) { },
+								examples: function(keyword, name, description, line) { }
 						 });
 
 						 lexer.scan(data);
