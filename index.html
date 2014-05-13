@@ -94,11 +94,25 @@
 
 			<div class="cuke-panel" id="steps" data-bind="with: selectedScenario, visible: selectedScenario, intoView: selectedScenario">
 				<div class="cuke-panel-inner">
-				<ul class="list-group" data-bind="foreach: steps">
+				<ul class="list-group">
+					<!-- ko foreach: givens -->
 					<li class="list-group-item cuke-step">
-						<span data-bind="text: type" class="cuke-keyword"></span>
+					<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
 						<span	data-bind="text: text"></span>
 					</li>
+					<!-- /ko -->
+					<!-- ko foreach: whens -->
+					<li class="list-group-item cuke-step">
+					<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
+						<span	data-bind="text: text"></span>
+					</li>
+					<!-- /ko -->
+					<!-- ko foreach: thens -->
+					<li class="list-group-item cuke-step">
+					<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
+						<span	data-bind="text: text"></span>
+					</li>
+					<!-- /ko -->
 				</ul>
 				</div>
 			</div>
