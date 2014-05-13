@@ -18,26 +18,6 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 		<style type="text/css">
-			.cuke-panel {
-				width:400px;
-				height:800px;
-				float:left;
-				overflow:hidden;
-				margin-left:4px;
-			}
-			.cuke-panel-inner {
-				width:400px;
-				height:100%;
-			}
-			.cuke-container {
-				width:1216px;
-				height:804px;
-			}
-			#cuke-outer {
-				width:100%;
-				padding: 4px 4px 4px 0;
-				overflow:auto;
-			}
 		</style>
   </head>
   <body>
@@ -69,31 +49,25 @@
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
 		</nav>
-		<div id="cuke-outer">
 		<div class="cuke-container" id="cuke-container">
 			<div class="cuke-panel" id="features">
-				<div class="cuke-panel-inner">
 				<ul class="list-group" data-bind="foreach: features">
 					<li class="list-group-item" data-bind="click: $parent.selectFeature, intoView: $root.selectedFeature, attr: { title: file }">
 							<span class="badge" data-bind="text: scenarios().length"></span>
 							<span data-bind="text: name"></span>
 						</li>
 				</ul>
-				</div>
 			</div>
 
 			<div class="cuke-panel" id="scenarios" data-bind="with: selectedFeature, visible: selectedFeature">
-				<div class="cuke-panel-inner">
 				<ul class="list-group" data-bind="foreach: scenarios">
 					<li class="list-group-item" data-bind="click: $root.selectScenario, css: type() == 'Background' ? 'cuke-feature-background' : ''">
 						<span data-bind="text: name"></span>
 					</li>
 				</ul>
 			</div>
-			</div>
 
 			<div class="cuke-panel" id="steps" data-bind="with: selectedScenario, visible: selectedScenario, intoView: selectedScenario">
-				<div class="cuke-panel-inner">
 				<ul class="list-group">
 					<!-- ko foreach: givens -->
 					<li class="list-group-item cuke-step">
@@ -114,10 +88,8 @@
 					</li>
 					<!-- /ko -->
 				</ul>
-				</div>
 			</div>
-		</div>
-	</div> <!-- cuke-outer -->
+	</div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
