@@ -79,6 +79,7 @@
 					<li class="cuke-step">
 					<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
 						<span	data-bind="text: text"></span>
+						<pre data-bind="text: lines().join('\n')"/>
 					</li>
 					<!-- /ko -->
 					<!-- ko foreach: whens -->

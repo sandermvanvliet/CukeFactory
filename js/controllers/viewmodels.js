@@ -47,6 +47,7 @@ var Step = function(type, text) {
 	self.type = ko.observable(type);
 	self.text= ko.observable(text);
 	self.parameters = ko.observableArray([]);
+	self.lines = ko.observableArray([]);
 };
 var FeaturesViewModel = function() {
 	var self = this;
@@ -88,6 +89,7 @@ var FeaturesViewModel = function() {
 					var scenario = new Scenario(scenarioData.name);
 					$.each(scenarioData.steps, function(index,stepData) {
 						var step = new Step(stepData.type, stepData.text);
+						stepData.lines.forEach(function(l) { step.lines.push(l); });
 						scenario.addStep(step);
 					});
 					feature.addScenario(scenario);

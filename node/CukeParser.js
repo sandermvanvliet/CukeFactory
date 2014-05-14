@@ -6,7 +6,7 @@ module.exports.CukeParser = function() {
 						 var lexer = new (Gherkin.Lexer('en'))({
 								comment: function() { },
 								background: self.handleBackground,
-								doc_string: function(contentType, string, line) { },
+						 		doc_string: self.handleDocString,
 								eof: function() { },
 								feature: self.handleFeature,
 								row: function(cells, line) { },
@@ -36,7 +36,7 @@ module.exports.CukeParser = function() {
 									if(keyword.toLowerCase() === 'and') {
 										keyword = steps[steps.length-1].type;
 									}
-									steps.push({ type: keyword.trim(), text: name.trim() });
+									steps.push({ type: keyword.trim(), text: name.trim(), lines: [] });
 								},
 			handleTag: function(value, line) {
 									 if(self.currentScenario == null) {
@@ -51,6 +51,10 @@ module.exports.CukeParser = function() {
 										 self.currentScenario.tags.push(value);
 									 }
 								 },
+			handleDocString: function(contentType, string, line) { 
+									var steps = self.currentScenario == null ? self.feature.background.steps : self.currentScenario.steps;
+									steps[steps.length-1].lines.push(string);
+								},
 			feature: null,
 			currentScenario: null,
 			featureTags: []
