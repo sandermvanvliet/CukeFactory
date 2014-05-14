@@ -9,7 +9,7 @@ module.exports.CukeParser = function() {
 						 		doc_string: self.handleDocString,
 								eof: function() { },
 								feature: self.handleFeature,
-								row: function(cells, line) { },
+								row: self.handleRow,
 								scenario: self.handleScenario,
 								step: self.handleStep,
 								tag: self.handleTag,
@@ -19,6 +19,10 @@ module.exports.CukeParser = function() {
 
 						 lexer.scan(data);
 					 },
+		handleRow: function(cells, row) {
+									var steps = self.currentScenario == null ? self.feature.background.steps : self.currentScenario.steps;
+									steps[steps.length-1].rows.push(cells);
+							 },
 		handleBackground: function(keyword, name, description, line) {
 												self.feature.background = { steps: [] };
 											},
@@ -36,7 +40,7 @@ module.exports.CukeParser = function() {
 									if(keyword.toLowerCase() === 'and') {
 										keyword = steps[steps.length-1].type;
 									}
-									steps.push({ type: keyword.trim(), text: name.trim(), lines: [] });
+									steps.push({ type: keyword.trim(), text: name.trim(), lines: [], rows:[] });
 								},
 			handleTag: function(value, line) {
 									 if(self.currentScenario == null) {

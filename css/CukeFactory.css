@@ -47,6 +47,19 @@ body {
 	background:#428bca;
 	color:white;
 }
+.cuke-step-table {
+	border-collapse: collapse;
+	margin-left:8px;
+}
+.cuke-step-table tr:first-child td {
+	font-weight:bold !important;
+}
+.cuke-step-table td {
+	padding:0px 4px 0px 4px;
+	margin:2px 0 2px 0;
+	border-left:solid 2px #cccccc;
+	border-right:solid 2px #cccccc;
+}
 /* Suggestions */
 #newScenario .typeahead {
 	display:block;

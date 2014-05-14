@@ -2,11 +2,10 @@ Feature: tralalallalalalalal
 
 	Scenario: The happy day
 		Given I am happy
-"""
-With line 1
-WIth line 2
-With line 3
-"""
+			| Name | Type | Text            |
+			| ABC  | Text | Message Message |
+			| BCA  | TEXT | Message Message |
+			| CAB  | tExT | Message Message |
 		When I go and get a coffee
 		Then I'll be even more happy
 

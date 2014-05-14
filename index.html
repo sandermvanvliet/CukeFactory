@@ -79,6 +79,13 @@
 					<li class="cuke-step">
 					<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
 						<span	data-bind="text: text"></span>
+						<table data-bind="with: rows(), visible: rows().length > 0" class="cuke-step-table">
+							<tbody data-bind="foreach:$data">
+								<tr data-bind="foreach: $data">
+									<td data-bind="text: $data"></td>
+								</tr>
+							</tbody>
+						</table>
 						<pre data-bind="text: lines().join('\n'), visible: lines().length > 0"/>
 					</li>
 					<!-- /ko -->
@@ -87,6 +94,13 @@
 					<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
 						<span	data-bind="text: text"></span>
 						<pre data-bind="text: lines().join('\n'), visible: lines().length > 0"/>
+						<table data-bind="with: rows(), visible: rows().length > 0" class="cuke-step-table">
+							<tbody data-bind="foreach:$data">
+								<tr data-bind="foreach: $data">
+									<td data-bind="text: $data"></td>
+								</tr>
+							</tbody>
+						</table>
 					</li>
 					<!-- /ko -->
 					<!-- ko foreach: thens -->
@@ -94,6 +108,13 @@
 					<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
 						<span	data-bind="text: text"></span>
 						<pre data-bind="text: lines().join('\n'), visible: lines().length > 0"/>
+						<table data-bind="with: rows(), visible: rows().length > 0" class="cuke-step-table">
+							<tbody data-bind="foreach:$data">
+								<tr data-bind="foreach: $data">
+									<td data-bind="text: $data"></td>
+								</tr>
+							</tbody>
+						</table>
 					</li>
 					<!-- /ko -->
 				</ul>
