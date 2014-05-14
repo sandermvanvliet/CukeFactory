@@ -13,6 +13,11 @@ body {
 	overflow-x: hidden;
 	margin-left:2px;
 }
+.cuke-panel-inner {
+	width: 400px;
+	height:100%;
+	overflow:hidden;
+}
 .cuke-container {
 	width:1216px;
 	height:100%;
