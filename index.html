@@ -60,8 +60,8 @@
 				</ul>
 			</div>
 
-			<div class="cuke-panel" id="scenarios" data-bind="with: selectedFeature, visible: selectedFeature">
-				<ul class="list-group" data-bind="foreach: scenarios">
+			<div class="cuke-panel" data-bind="with: selectedFeature, visible: selectedFeature">
+				<ul class="list-group" id="scenarios" data-bind="foreach: scenarios">
 					<li class="list-group-item" data-bind="click: $root.selectScenario, css: scenarioClass">
 						<span data-bind="text: name"></span>
 					</li>
@@ -128,37 +128,49 @@
 				$(document).keydown(function(e) {
 						if(e.keyCode == 37) {
 						// left
+							featuresViewModelInstance.selectScenario(null);
 						} else if(e.keyCode == 38) {
 						// up
-							selectPrevious('features');
+							if(featuresViewModelInstance.selectedScenario() === null) {
+								selectPrev('features');
+							} else {
+								selectPrev('scenarios');
+							}
 						} else if(e.keyCode == 39) {
 						// right
+							if($('#scenarios>.cuke-selected').length == 0) {
+								$('#scenarios>li:first').click();
+							}
 						} else if(e.keyCode == 40) {
 						// down
-							selectNext('features');
+							if(featuresViewModelInstance.selectedScenario() === null) {
+								selectNext('features');
+							} else {
+								selectNext('scenarios');
+							}
 						}
 				});
 function selectNext(target) {
 	var selected = $('#' + target + '>.cuke-selected');
 	if(selected !== undefined) {
 		var next = $(selected).next();
-		if(next.length > 0) {
+		if(next.length > 0 && next.parent().id == selected.parent().id) {
 			next.click();
 		}
 		else {
-			$('#features>li:first').click();
+			$('#' + target + ' > li:first').click();
 		}
 	}
 }
-function selectPrevious(target) {
+function selectPrev(target) {
 	var selected = $('#' + target + '>.cuke-selected');
 	if(selected !== undefined) {
 		var previous = $(selected).prev();
-		if(previous.length > 0) {
+		if(previous.length > 0 && previous.parent().id == selected.parent().id) {
 			previous.click();
 		}
 		else {
-			$('#features>li:last').click();
+			$('#' + target + ' > li:last').click();
 		}
 	}
 }
