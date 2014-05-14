@@ -36,6 +36,10 @@ body {
 }
 .cuke-step {
 }
+.cuke-step>pre {
+	padding: 2px 0 0 6px;
+	margin:0;
+}
 .cuke-feature-background {
 	color: blue;
 }
