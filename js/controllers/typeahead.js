@@ -37,11 +37,12 @@ var TypeAhead = function(selector) {
 
 			var windowWidth = $(window).width();
 			var dropdownWidth = dropdown.outerWidth() + 4;
-			var textboxPosition = $(this).offset().left;
+			var offset = $(this).offset();
+			var textboxPosition = offset.left - $(document).scrollLeft();
 
 			var left = ((textboxPosition + dropdownWidth) - windowWidth) * -1;
 
-			dropdown.css('left', left + 'px');
+			dropdown.css({marginLeft: left + 'px'});
 		});
 	};
 };
