@@ -121,7 +121,6 @@
 					else if (rel.top > 0 && rel.bottom < 0)
 					{
 						var toScroll = dim.s.scroll.top + Math.min(rel.top, -rel.bottom);
-						console.log('toScroll: ' + toScroll);
 						animOptions.scrollTop = toScroll;
 					}
 				}

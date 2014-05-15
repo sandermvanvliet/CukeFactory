@@ -73,7 +73,9 @@ var FeaturesViewModel = function() {
 	};
 	self.selectScenario = function(scenario) {
 		self.selectedScenario(scenario);
-		self.selectedFeature().selectScenario(scenario);
+		if(self.selectedFeature() !== null) {
+			self.selectedFeature().selectScenario(scenario);
+		}
 	};
 	self.browseFeatures = function() {
 		self.selectedFeature(null);

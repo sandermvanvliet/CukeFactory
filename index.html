@@ -191,6 +191,7 @@ function selectNext(target) {
 		var next = $(selected).next();
 		if(next.length > 0 && next.parent().id == selected.parent().id) {
 			next.click();
+			next.scrollintoview();
 		}
 		else {
 			$('#' + target + ' > li:first').click();
@@ -203,6 +204,7 @@ function selectPrev(target) {
 		var previous = $(selected).prev();
 		if(previous.length > 0 && previous.parent().id == selected.parent().id) {
 			previous.click();
+			previous.scrollintoview();
 		}
 		else {
 			$('#' + target + ' > li:last').click();
