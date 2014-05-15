@@ -156,6 +156,11 @@
 			</script>
 			<script type="text/javascript">
 				$(document).keydown(function(e) {
+						// Check if drop down is open
+						if($('.tt-dropdown-menu').is(':visible')) {
+							// Exit if there is a typeahead box open as they bind the keydown as well
+							return;
+						}
 						if(e.keyCode == 37) {
 						// left
 							featuresViewModelInstance.selectScenario(null);
