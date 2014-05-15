@@ -1,55 +1,3 @@
-var Feature = function(name) {
-	var self = this;
-	self.name = ko.observable(name)
-	self.scenarios = ko.observableArray([]);
-	self.addScenario = function(scenario) {
-		self.scenarios.push(scenario);
-	};
-	self.file = ko.observable();
-	self.selected = ko.observable(false);
-	self.selectScenario = function(scenario) {
-		self.scenarios().forEach(function(item) { item.selected(false); });
-		if(scenario !== null) {
-			scenario.selected(true);
-		}
-	};
-};
-var Scenario = function(name) {
-	var self = this;
-	self.type = ko.observable('Scenario');
-	self.selected = ko.observable(false);
-	self.name = ko.observable(name);
-	self.givens = ko.observableArray([]);
-	self.whens = ko.observableArray([]);
-	self.thens = ko.observableArray([]);
-	self.steps = ko.computed(function() {
-		return self.givens().concat(self.whens()).concat(self.thens());
-	});
-	self.addStep = function(step) {
-		var stepType = step.type().toLowerCase();
-		if(stepType == 'given') {
-			self.givens.push(step);
-		}
-		else if(stepType == 'when') {
-			self.whens.push(step);
-		}
-		else if(stepType == 'then') {
-			self.thens.push(step);
-		}
-	};
-	self.scenarioClass = ko.computed(function() {
-		var ret = self.selected() ? 'cuke-selected' : '';
-		return ret + (self.type() == 'Background' ? ' cuke-feature-background' : '');
-	});
-};
-var Step = function(type, text) {
-	var self = this;
-	self.type = ko.observable(type);
-	self.text= ko.observable(text);
-	self.parameters = ko.observableArray([]);
-	self.lines = ko.observableArray([]);
-	self.rows = ko.observableArray([]);
-};
 var FeaturesViewModel = function() {
 	var self = this;
 	self.features = ko.observableArray([]);
@@ -110,8 +58,7 @@ var FeaturesViewModel = function() {
 				newFeatures.push(feature);
 			});
 			self.features(newFeatures);
-		}).error(function(jqXHR, textStatus, errorThrown) { console.log('error: ' + textStatus);
-	 console.log(jqXHR.responseText);	});
+		}).error(function(jqXHR, textStatus, errorThrown) { console.log('error: ' + textStatus);});
 	};
 	self.allSteps = ko.computed(function() {
 		return $.map(self.features(), function(feature) {

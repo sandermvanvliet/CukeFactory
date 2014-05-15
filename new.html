@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CukeFactory</title>
+    <title>CukeFactory - New scenario</title>
 
     <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -38,7 +38,7 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 						<li><a href="#" data-bind="click: $root.browseFeatures">Browse features</a></li>
-		        <li><a href="new.html">Create new scenario</a></li>
+		        <li><a href="#" data-bind="click: $root.createNewScenario">Create new scenario</a></li>
 		      </ul>
 		      <form class="navbar-form navbar-right" role="search">
 		        <div class="form-group">
@@ -129,33 +129,12 @@
 		<script src="bower_components/knockoutjs/knockout.js"></script>
 		<script src="bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
 		<script src="bower_components/handlebars/handlebars.min.js"></script>
-		<script src="js/viewmodels/step.js"></script>
-		<script src="js/viewmodels/scenario.js"></script>
-		<script src="js/viewmodels/feature.js"></script>
 		<script src="js/controllers/viewmodels.js"></script>
 		<script src="js/jquery.scrollintoview.js"></script>
 		<script src="js/controllers/typeahead.js"></script>
 		<script type="text/javascript">
 			var viewModel = new FeaturesViewModel();
-			viewModel.loadFeatures();
-			ko.applyBindings(viewModel);
-			viewModel.features.subscribe(function(newValue) {
-					if(newValue !== undefined) {
-						viewModel.refreshSearchBox();
-					}
-				});
-			viewModel.searchBoxIndex.subscribe(function (newValue) {
-					if(newValue !== undefined) {
-						new TypeAhead('#searchBox').initialize(
-							newValue,
-							function(event,selection) {
-								if(selection !== undefined) {
-									console.log(selection);
-									$(this).typeahead('val','');
-								}
-							});
-						}
-					}, this);
+			viewModel.initializeForNewFeature();
 			</script>
 			<script type="text/javascript">
 				$(document).keydown(function(e) {
