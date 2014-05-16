@@ -36,13 +36,16 @@ var TypeAhead = function(selector) {
 			var dropdown = $('.tt-dropdown-menu');
 
 			var windowWidth = $(window).width();
-			var dropdownWidth = dropdown.outerWidth() + 4;
+			var dropdownWidth = dropdown.outerWidth();
 			var offset = $(this).offset();
 			var textboxPosition = offset.left - $(document).scrollLeft();
 
-			var left = ((textboxPosition + dropdownWidth) - windowWidth) * -1;
+			if(textboxPosition + dropdownWidth > windowWidth)
+			{
+				var left = ((textboxPosition + dropdownWidth) - windowWidth) * -1;
 
-			dropdown.css({marginLeft: left + 'px'});
+				dropdown.css({marginLeft: left + 'px'});
+			}
 		});
 	};
 };
