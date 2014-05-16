@@ -37,8 +37,7 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
-						<li><a href="#" data-bind="click: $root.browseFeatures">Browse features</a></li>
-		        <li><a href="#" data-bind="click: $root.createNewScenario">Create new scenario</a></li>
+						<li><a href="index.html">Browse features</a></li>
 		      </ul>
 		      <form class="navbar-form navbar-right" role="search">
 		        <div class="form-group">
@@ -50,77 +49,31 @@
 		  </div><!-- /.container-fluid -->
 		</nav>
 
-		<div class="cuke-container" id="cuke-container">
-			<div class="cuke-panel">
-			<div class="cuke-panel-inner">
-				<ul class="list-group" data-bind="foreach: features" id="features">
-					<li class="list-group-item" data-bind="click: $parent.selectFeature, intoView: $root.selectedFeature, attr: { title: file }, css: selected() ? 'cuke-selected' : ''">
-							<span class="badge" data-bind="text: scenarios().length"></span>
-							<span data-bind="text: name"></span>
-						</li>
-				</ul>
-			</div>
-			</div>
-
-			<div class="cuke-panel" data-bind="with: selectedFeature, visible: selectedFeature">
-			<div class="cuke-panel-inner">
-				<ul class="list-group" id="scenarios" data-bind="foreach: scenarios">
-					<li class="list-group-item" data-bind="click: $root.selectScenario, css: scenarioClass">
-						<span data-bind="text: name"></span>
-					</li>
-				</ul>
-			</div>
-			</div>
-
-			<div class="cuke-panel" id="steps" data-bind="with: selectedScenario, visible: selectedScenario, intoView: selectedScenario">
-			<div class="cuke-panel-inner">
-				<ul class="list-group">
+		<div style="width:100%;margin:4px">
+			<h4>Scenario: <input type="text" data-bind="value: name" placeholder="Name of scenario" /></h4>
+			<h5>Steps:</h5>
+				<ul class="list-group" style="margin:4px">
 					<!-- ko foreach: givens -->
 					<li class="cuke-step">
-					<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
+						<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
 						<span	data-bind="text: text"></span>
-						<table data-bind="with: rows(), visible: rows().length > 0" class="cuke-step-table">
-							<tbody data-bind="foreach:$data">
-								<tr data-bind="foreach: $data">
-									<td data-bind="text: $data"></td>
-								</tr>
-							</tbody>
-						</table>
-						<pre data-bind="text: lines().join('\n'), visible: lines().length > 0"/>
 					</li>
 					<!-- /ko -->
 					<!-- ko foreach: whens -->
 					<li class="cuke-step">
-					<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
+						<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
 						<span	data-bind="text: text"></span>
-						<pre data-bind="text: lines().join('\n'), visible: lines().length > 0"/>
-						<table data-bind="with: rows(), visible: rows().length > 0" class="cuke-step-table">
-							<tbody data-bind="foreach:$data">
-								<tr data-bind="foreach: $data">
-									<td data-bind="text: $data"></td>
-								</tr>
-							</tbody>
-						</table>
 					</li>
 					<!-- /ko -->
 					<!-- ko foreach: thens -->
 					<li class="cuke-step">
-					<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
+						<span data-bind="text: $index() == 0 ? type : 'And'" class="cuke-keyword"></span>
 						<span	data-bind="text: text"></span>
-						<pre data-bind="text: lines().join('\n'), visible: lines().length > 0"/>
-						<table data-bind="with: rows(), visible: rows().length > 0" class="cuke-step-table">
-							<tbody data-bind="foreach:$data">
-								<tr data-bind="foreach: $data">
-									<td data-bind="text: $data"></td>
-								</tr>
-							</tbody>
-						</table>
 					</li>
 					<!-- /ko -->
+					<li><input type="text" class="form-control typeahead" placeholder="Step" id="stepsuggest"/></li>
 				</ul>
 			</div>
-			</div>
-	</div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -129,70 +82,28 @@
 		<script src="bower_components/knockoutjs/knockout.js"></script>
 		<script src="bower_components/typeahead.js/dist/typeahead.bundle.js"></script>
 		<script src="bower_components/handlebars/handlebars.min.js"></script>
-		<script src="js/controllers/viewmodels.js"></script>
 		<script src="js/jquery.scrollintoview.js"></script>
-		<script src="js/controllers/typeahead.js"></script>
+		<script src="js/cukefactory.min.js"></script>
+		<script src="js/typeahead.min.js"></script>
+		<script src="js/viewmodels/newscenario.js"></script>
 		<script type="text/javascript">
-			var viewModel = new FeaturesViewModel();
-			viewModel.initializeForNewFeature();
+			var viewModel = new NewScenarioViewModel();
+			viewModel.availableSteps.subscribe(function(newVal) {
+					if(newVal !== undefined) {
+						new TypeAhead('#stepsuggest').initialize(
+							newVal.map(function(i) { return { text: i.text(), type: 'step' }; }),
+							function(event, selection) {
+								if(selection !== undefined) {
+									console.log(selection);
+									$(this).typeahead('val', '');
+								}
+							});
+						}
+					});
+			ko.applyBindings(viewModel);
+			viewModel.loadAvailableSteps();
 			</script>
 			<script type="text/javascript">
-				$(document).keydown(function(e) {
-						// Check if drop down is open
-						if($('.tt-dropdown-menu').is(':visible')) {
-							// Exit if there is a typeahead box open as they bind the keydown as well
-							return;
-						}
-						if(e.keyCode == 37) {
-						// left
-							viewModel.selectScenario(null);
-						} else if(e.keyCode == 38) {
-						// up
-							if(viewModel.selectedScenario() === null) {
-								selectPrev('features');
-							} else {
-								selectPrev('scenarios');
-							}
-						} else if(e.keyCode == 39) {
-						// right
-							if($('#scenarios>.cuke-selected').length == 0) {
-								$('#scenarios>li:first').click();
-							}
-						} else if(e.keyCode == 40) {
-						// down
-							if(viewModel.selectedScenario() === null) {
-								selectNext('features');
-							} else {
-								selectNext('scenarios');
-							}
-						}
-				});
-function selectNext(target) {
-	var selected = $('#' + target + '>.cuke-selected');
-	if(selected !== undefined) {
-		var next = $(selected).next();
-		if(next.length > 0 && next.parent().id == selected.parent().id) {
-			next.click();
-			next.scrollintoview();
-		}
-		else {
-			$('#' + target + ' > li:first').click();
-		}
-	}
-}
-function selectPrev(target) {
-	var selected = $('#' + target + '>.cuke-selected');
-	if(selected !== undefined) {
-		var previous = $(selected).prev();
-		if(previous.length > 0 && previous.parent().id == selected.parent().id) {
-			previous.click();
-			previous.scrollintoview();
-		}
-		else {
-			$('#' + target + ' > li:last').click();
-		}
-	}
-}
 			</script>
   </body>
 </html>

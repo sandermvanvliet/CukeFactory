@@ -13,6 +13,7 @@ module.exports = function(grunt) {
 		'js/viewmodels/step.js',
 		'js/viewmodels/scenario.js',
 		'js/viewmodels/feature.js',
+//		'js/viewmodels/newscenario.js',
 		'js/controllers/viewmodels.js'
 					],
 					'js/typeahead.min.js': [
